@@ -24,8 +24,8 @@ const recordAnswer = ( state, answer ) => {
 
 export default function( state = defaultState, action ){
 	switch( action.type ){
-		case actionTypes.QUESTION.ANSWERED: return recordAnswer( state, action.answer );
-		case actionTypes.QUESTION.SELECTED: return selectQuestion( state, action.questionIndex );
+		case actionTypes.QUESTION.ANSWER: return recordAnswer( state, action.answer );
+		case actionTypes.QUESTION.SELECT: return selectQuestion( state, action.questionIndex );
 		default: return state;
 	}
 }

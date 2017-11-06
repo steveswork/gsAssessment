@@ -1,8 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Assessment from '../../components/assessment';
+import assessment from '../../components/assessment';
 
-const props = {
+const Assessment = assessment.WrappedComponent,
+	  props = {
 		totalQuestions: 8,
 		questionIndex: 0,
 		question:{
@@ -12,7 +13,10 @@ const props = {
 					'Nothing much',
 					'Are we speaking in tautology now?'
 				]
-			}
+			},
+		history:{
+			push: (() => {})
+		}
 	};
  
 describe( 'handles "Assessment Component"', () => {

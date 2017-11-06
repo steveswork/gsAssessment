@@ -46,7 +46,7 @@ export default [{
 			query: '2 ^ 8',
 			answerChoices: [ '256', '28', '64' ],
 			correct: {
-				answerChoiceIndex: 1,
+				answerChoiceIndex: 0,
 				scoreValue: 5
 			},
 			actual: {

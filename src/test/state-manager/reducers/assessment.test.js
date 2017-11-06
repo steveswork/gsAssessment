@@ -36,7 +36,7 @@ describe( 'handles assessment reducer', () => {
 		expect( state ).toEqual( defaultState );
 	});
 	describe( 'handles QUESTION.ANSWERED action', () => {
-		const type = actionTypes.QUESTION.ANSWERED;
+		const type = actionTypes.QUESTION.ANSWER;
 		it( 'records correct answer', () => {
 			const answer = '12',
 				  state = reducer({ ...defaultState, activeQuestionIndex: 1 }, { type, answer });
@@ -55,11 +55,11 @@ describe( 'handles assessment reducer', () => {
 		});
 	});
 	describe( 'handles QUESTION.SELECTED action', () => {
-		const type = actionTypes.QUESTION.SELECTED;
+		const type = actionTypes.QUESTION.SELECT;
 		it( 'updates active question for valid index value', () => {
 			const questionIndex = 0,
 				  state = reducer({ ...defaultState, activeQuestionIndex: 1 }, { type, questionIndex });
-			expect( state.activeQuestionIndex ).toEqual( 1 );
+			expect( state.activeQuestionIndex ).toEqual( 0 );
 		});
 		it( 'does not alter state when valid index is the current active index', () => {
 			const questionIndex = 1,

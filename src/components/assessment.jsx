@@ -3,68 +3,68 @@ import PropTypes from 'prop-types';
 import range from 'lodash/range';
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import Questionnaire from './assessment/questionnaire';
+import { withRouter } from 'react-router-dom';
 
-
-export default class extends Component {
-	static get propTypes(){
-		return {
-			totalQuestions: PropTypes.number.isRequired,
-			questionIndex: PropTypes.number.isRequired,
-			question: PropTypes.shape({
-					query: PropTypes.string,
-					answerChoices: PropTypes.array
-				}).isRequired,
-			onAnswer: PropTypes.func,
-			onUpdateQuestion: PropTypes.func,
-			onSubmit:  PropTypes.func
-		};
-	}
-	onUpdateQuestion( nextQuestionIndex ){
-		this.props.onAnswer( this.questionnaire.state.answer );
-		this.props.onUpdateQuestion( nextQuestionIndex );
-	}
-	onSubmit(){
-		this.props.onAnswer( this.queryForm.state.answer );
-		this.props.onSubmit();
-	}
-	render(){
-		const { questionIndex, totalQuestions } = this.props,
-			  buttonProps = { 
-			  		onUpdateQuestion: this.onUpdateQuestion.bind( this ), 
-			  		onSubmit: this.onSubmit.bind( this ), 
-			  		questionIndex, 
-			  		totalQuestions 
-			  	};
-		return <div className='assessment'>
-				<h3>Assessment { this.props.questionIndex + 1 } of { this.props.totalQuestions }</h3>
-				<Questionnaire ref={ q => this.questionnaire = q }{ ...this.props.question } />
-				<div className='actions'>
-					<BackButton { ...buttonProps } />
-					<JumpButtons { ...buttonProps } />
-					<NextButton { ...buttonProps } />
+export default withRouter(
+	class extends Component {
+		static get propTypes(){
+			return {
+				totalQuestions: PropTypes.number.isRequired,
+				questionIndex: PropTypes.number.isRequired,
+				question: PropTypes.shape({
+						query: PropTypes.string,
+						answerChoices: PropTypes.array,
+						answer: PropTypes.any
+					}).isRequired,
+				onAnswer: PropTypes.func,
+				onUpdateQuestion: PropTypes.func,
+				onSubmit:  PropTypes.func
+			};
+		}
+		onUpdateQuestion( nextQuestionIndex ){
+			this.props.onAnswer( this.questionnaire.state.answer );
+			this.props.onUpdateQuestion( nextQuestionIndex );
+		}
+		onSubmit(){
+			this.props.onAnswer( this.questionnaire.state.answer );
+			this.props.onSubmit ? this.props.onSubmit() : this.props.history.push( '/assessment/result' );
+		}
+		render(){
+			const { questionIndex, totalQuestions } = this.props,
+				  buttonProps = { 
+				  		onUpdateQuestion: this.onUpdateQuestion.bind( this ), 
+				  		onSubmit: this.onSubmit.bind( this ), 
+				  		questionIndex, 
+				  		totalQuestions 
+				  	};
+			return <div className='assessment'>
+					<h3>Assessment { this.props.questionIndex + 1 } of { this.props.totalQuestions }</h3>
+					<Questionnaire ref={ q => this.questionnaire = q }{ ...this.props.question } />
+					<div className='actions'>
+						<BackButton { ...buttonProps } />
+						<JumpButtons { ...buttonProps } />
+						<NextButton { ...buttonProps } />
+					</div>
 				</div>
-			</div>
-	} 
-}
+		} 
+	});
 
 const BackButton = ({ onUpdateQuestion, questionIndex }) => 
 					questionIndex > 0
-						? <div className='back'><Button onClick={ () => onUpdateQuestion( questionIndex - 1 )}>Previous</Button></div> 
-						: <div className='null'><span /></div>;
+						? <div className='dir back'><Button onClick={ () => onUpdateQuestion( questionIndex - 1 )}>Previous</Button></div> 
+						: <div className='dir null'><span /></div>;
 
 const NextButton = ({ onUpdateQuestion, onSubmit, questionIndex, totalQuestions }) => 
-					questionIndex < totalQuestions - 1 
-						? <div className='next'><Button onClick={ () => onUpdateQuestion( questionIndex + 1 )}>Next</Button></div>
-						: <div className='submit'><Button onClick={ onSubmit }>Finish</Button></div>;
+					questionIndex < totalQuestions - 1
+						? <div className='dir next'><Button onClick={ () => onUpdateQuestion( questionIndex + 1 )}>Next</Button></div>
+						: <div className='dir submit'><Button onClick={ onSubmit }>Finish</Button></div>;
 
 const JumpButtons = ({ onUpdateQuestion, questionIndex, totalQuestions }) =>
-			<div>
-				<ButtonGroup>
-					<ButtonToolbar>
-						{ range( totalQuestions - 1 ).map( getJumpButtonProvider( questionIndex, onUpdateQuestion ))}
-					</ButtonToolbar>
-				</ButtonGroup>
-			</div>;
+			<ButtonGroup>
+				<ButtonToolbar>
+					{ range( totalQuestions ).map( getJumpButtonProvider( questionIndex, onUpdateQuestion ))}
+				</ButtonToolbar>
+			</ButtonGroup>;
 
 const getJumpButtonProvider = ( activeButtonIndex, onClick ) => buttonIndex => buttonIndex !== activeButtonIndex
 											? <Button key={ buttonIndex } onClick={ () => onClick( buttonIndex )}>{ buttonIndex + 1 }</Button>

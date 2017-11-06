@@ -6,7 +6,13 @@ export default class extends Component {
 	static get propTypes(){
 		return {
 			query: PropTypes.string.isRequired,
-			answerChoices: PropTypes.array.isRequired
+			answerChoices: PropTypes.array.isRequired,
+			answer: PropTypes.any
+		};
+	}
+	static get defaultProps(){
+		return {
+			answer: ''
 		};
 	}
 	constructor( props ){
@@ -14,6 +20,14 @@ export default class extends Component {
 		this.state = {
 			answer: undefined
 		};
+	}
+	componentWillMount(){
+		this.state.answer = this.props.answer;
+	}
+	componentWillUpdate( nextProps, nextState ){
+		if( this.state.answer !== nextProps.answer ){
+			this.state.answer = nextProps.answer;
+		}
 	}
 	setAnswer( answer ){
 		this.setState({ answer });

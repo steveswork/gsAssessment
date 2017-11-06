@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.App p{
+  text-align: justify;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -20,6 +24,47 @@
 
 .App-intro {
   font-size: large;
+}
+
+.App > article {
+  margin-left: calc(50vw/2);
+  width: 50vw;
+}
+
+.App > article > div > *{
+  padding: 2vh 1vw 2vh 1vw;
+}
+
+.questionnaire > div:first-child {
+  margin-bottom: 5vh;
+}
+
+.questionnaire > div:first-child,
+.result > div:nth-child( 2 ) > div:first-child {
+  font-weight: bold;
+}
+
+.assessment .actions,
+.result > div:nth-child( 2 ) > div{ 
+  display: flex 
+}
+
+.result > div:nth-child( 2 ) > div > div{   
+  padding: 1vmin
+}
+
+.assessment .actions > :not(.dir),
+.result > div:nth-child( 2 ) > div > div:first-child{ 
+  width: 50%
+}
+
+.assessmet .actions > :not(.dir){
+  padding-left: 15%
+}
+
+.assessment .actions > .dir,
+.result > div:nth-child( 2 ) > div > div:not( :first-child ){ 
+  width: 25%
 }
 
 @keyframes App-logo-spin {
