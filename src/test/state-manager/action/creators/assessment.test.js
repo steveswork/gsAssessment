@@ -10,4 +10,7 @@ describe( 'handles assessment action creator', () => {
 						type: actionTypes.QUESTION.SELECT,
 						questionIndex: 1
 					}));
+	it( 'initiates action to reset all user answers', () => expect( creators.resetAnswersAction() ).toEqual({
+						type: actionTypes.ANSWERS.RESET
+					}));
 });

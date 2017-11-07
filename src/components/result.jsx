@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import get from 'lodash/get';
 import { Button } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import './result.css';
 
 export default withRouter( 
 	class extends Component{
@@ -21,12 +22,12 @@ export default withRouter(
 								scoreValue: PropTypes.number
 							})
 						})).isRequired,
-				linkToStartAction: PropTypes.func
+				clearAnswers: PropTypes.func.isRequired
 			};
 		}
 		static get defaultProps(){
 			return {
-				linkToStartAction: (()=>{})
+				clearAnswers: (()=>{})
 			};
 		}
 		getRow( question, index ){
@@ -38,6 +39,10 @@ export default withRouter(
 		}
 		getTotal( scoreValuePath ){
 			return this.props.questions.reduce(( total, q ) => total + get( q, scoreValuePath, 0 ), 0 );  
+		}
+		clearAnswers(){
+			this.props.clearAnswers();
+			this.props.history.push( '/' )
 		}
 		render(){
 			return <div className='result'>
@@ -57,7 +62,7 @@ export default withRouter(
 					<span>{ this.getTotal( 'correct.scoreValue' )}</span>
 				</div>
 				<div>
-					<Button bsStyle='link' onClick={ () => this.props.history.push( '/' )}>Home</Button>
+					<Button bsStyle='link' onClick={ () => this.clearAnswers() }>Home</Button>
 				</div>
 			</div>
 		}

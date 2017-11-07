@@ -1,0 +1,11 @@
+.assessment .actions{ 
+	display: flex 
+}
+
+.assessment .actions > :not(.dir){ 
+	padding-left: 15%;
+  	width: 50%
+}
+.assessment .actions > .dir{ 
+  width: 25%
+}

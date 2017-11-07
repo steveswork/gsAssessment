@@ -1,5 +1,5 @@
 import actionTypes from '../../../state-manager/action/types';
-import reducer from '../../../state-manager/reducers/assessment';
+import reducer, { defaultState as appDefaultState } from '../../../state-manager/reducers/assessment';
 
 const defaultState = {
 		activeQuestionIndex: 0,
@@ -72,6 +72,13 @@ describe( 'handles assessment reducer', () => {
 				  formerState = { ...defaultState, activeQuestionIndex: 1 },
 				  state = reducer( formerState, { type, questionIndex });
 			expect( state ).toEqual( formerState );
+		});
+	});
+
+	describe( 'handles ANSWERS.RESET action', () => {
+		const type = actionTypes.ANSWERS.RESET;
+		it( 'resets the data to the app\'s default state', () => {
+			expect( reducer({ ...defaultState }, { type })).toEqual( appDefaultState );
 		});
 	});
 });

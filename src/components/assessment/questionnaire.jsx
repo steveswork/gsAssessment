@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonGroup } from 'react-bootstrap';
+import './questionnaire.css';
 
 export default class extends Component {
 	static get propTypes(){

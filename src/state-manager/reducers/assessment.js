@@ -1,4 +1,5 @@
 import actionTypes from '../action/types';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const defaultState = {
 	activeQuestionIndex: 0,
@@ -20,12 +21,14 @@ const recordAnswer = ( state, answer ) => {
 	  							return { ...state, activeQuestionIndex: index };
 	  						}
 	  						return state;
-	  					}
+	  					},
+	  resetAnswers = () => cloneDeep( defaultState );
 
-export default function( state = defaultState, action ){
+export default function( state = resetAnswers(), action ){
 	switch( action.type ){
 		case actionTypes.QUESTION.ANSWER: return recordAnswer( state, action.answer );
 		case actionTypes.QUESTION.SELECT: return selectQuestion( state, action.questionIndex );
+		case actionTypes.ANSWERS.RESET: return resetAnswers();
 		default: return state;
 	}
 }

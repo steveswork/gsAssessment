@@ -1,9 +1,11 @@
 import React,{ Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import range from 'lodash/range';
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import Questionnaire from './assessment/questionnaire';
-import { withRouter } from 'react-router-dom';
+import './assessment.css';
+
 
 export default withRouter(
 	class extends Component {

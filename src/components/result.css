@@ -1,0 +1,19 @@
+.result > div:nth-child( 2 ) > div{ 
+  display: flex 
+}
+
+.result > div:nth-child( 2 ) > div:first-child {
+  font-weight: bold;
+}
+
+.result > div:nth-child( 2 ) > div > div{   
+  padding: 1vmin
+}
+
+.result > div:nth-child( 2 ) > div > div:first-child{ 
+  width: 50%
+}
+
+.result > div:nth-child( 2 ) > div > div:not( :first-child ){ 
+  width: 25%
+}

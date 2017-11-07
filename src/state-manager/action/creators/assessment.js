@@ -9,3 +9,7 @@ export const selectQuestionAction =  ( questionIndex = 0 )  => ({
 		type: ActionTypes.QUESTION.SELECT,
 		questionIndex
 	});
+
+export const resetAnswersAction = () => ({ 
+		type: ActionTypes.ANSWERS.RESET
+	});
