@@ -1,4 +1,5 @@
 .App {
+  background-color: #eee;
   text-align: center;
 }
 
@@ -27,8 +28,17 @@
 }
 
 .App > article {
-  margin-left: calc(50vw/2);
-  width: 50vw;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 4vmin;
+    -moz-box-shadow: 0 3px 16px -3px #222;
+    -webkit-box-shadow: 0 3px 16px -3px #222;
+    box-shadow: 0 3px 16px -3px #222;
+    height: 64vh;
+    margin-left: calc(40vw/2);
+    margin-top: 10vh;
+    padding: 5vmin;
+    width: 60vw;
 }
 
 .App > article > div > *{

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import Linker from './linker';
 
-export default withRouter(({ history }) => <div className='welcome'>
+export default props => <div className='welcome'>
 		<h3>Welcome</h3>
 		<div>
 			<p>
@@ -16,6 +15,6 @@ export default withRouter(({ history }) => <div className='welcome'>
 			</p>
 		</div>
 		<div className='link'>
-			<Button onClick={ () => history.push( '/assessment' )}>Enter</Button>
+			<Linker url='/assessment'>Enter</Linker>
 		</div>
-	</div> );
+	</div>;

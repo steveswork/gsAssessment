@@ -1,27 +1,24 @@
 import React,{ Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import range from 'lodash/range';
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import Linker from './linker';
 import Questionnaire from './assessment/questionnaire';
 import './assessment.css';
 
 
-export default withRouter(
-	class extends Component {
-		static get propTypes(){
-			return {
-				totalQuestions: PropTypes.number.isRequired,
-				questionIndex: PropTypes.number.isRequired,
-				question: PropTypes.shape({
-						query: PropTypes.string,
-						answerChoices: PropTypes.array,
-						answer: PropTypes.any
-					}).isRequired,
-				onAnswer: PropTypes.func,
-				onUpdateQuestion: PropTypes.func,
-				onSubmit:  PropTypes.func
-			};
+export default class extends Component {
+		static propTypes = {
+			totalQuestions: PropTypes.number.isRequired,
+			questionIndex: PropTypes.number.isRequired,
+			question: PropTypes.shape({
+					query: PropTypes.string,
+					answerChoices: PropTypes.array,
+					answer: PropTypes.any
+				}).isRequired,
+			onAnswer: PropTypes.func,
+			onUpdateQuestion: PropTypes.func,
+			onSubmit:  PropTypes.func
 		}
 		onUpdateQuestion( nextQuestionIndex ){
 			this.props.onAnswer( this.questionnaire.state.answer );
@@ -29,7 +26,7 @@ export default withRouter(
 		}
 		onSubmit(){
 			this.props.onAnswer( this.questionnaire.state.answer );
-			this.props.onSubmit ? this.props.onSubmit() : this.props.history.push( '/assessment/result' );
+			this.props.onSubmit && this.props.onSubmit() 
 		}
 		render(){
 			const { questionIndex, totalQuestions } = this.props,
@@ -40,7 +37,7 @@ export default withRouter(
 				  		totalQuestions 
 				  	};
 			return <div className='assessment'>
-					<h3>Assessment { this.props.questionIndex + 1 } of { this.props.totalQuestions }</h3>
+					<div>Step { this.props.questionIndex + 1 } of { this.props.totalQuestions }</div>
 					<Questionnaire ref={ q => this.questionnaire = q }{ ...this.props.question } />
 					<div className='actions'>
 						<BackButton { ...buttonProps } />
@@ -49,7 +46,7 @@ export default withRouter(
 					</div>
 				</div>
 		} 
-	});
+	}
 
 const BackButton = ({ onUpdateQuestion, questionIndex }) => 
 					questionIndex > 0
@@ -59,7 +56,9 @@ const BackButton = ({ onUpdateQuestion, questionIndex }) =>
 const NextButton = ({ onUpdateQuestion, onSubmit, questionIndex, totalQuestions }) => 
 					questionIndex < totalQuestions - 1
 						? <div className='dir next'><Button onClick={ () => onUpdateQuestion( questionIndex + 1 )}>Next</Button></div>
-						: <div className='dir submit'><Button onClick={ onSubmit }>Finish</Button></div>;
+						: <div className='dir submit'>
+							<Linker url = '/assessment/result' beforeTransitionHandler = { onSubmit }>Finish</Linker>
+						  </div>;
 
 const JumpButtons = ({ onUpdateQuestion, questionIndex, totalQuestions }) =>
 			<ButtonGroup>

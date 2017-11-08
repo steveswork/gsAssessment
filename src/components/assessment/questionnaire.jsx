@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import './questionnaire.css';
 
-export default class extends Component {
-	static get propTypes(){
-		return {
-			query: PropTypes.string.isRequired,
-			answerChoices: PropTypes.array.isRequired,
-			answer: PropTypes.any
-		};
+export default class Questionnaire extends Component {
+	static propTypes = {
+		query: PropTypes.string.isRequired,
+		answerChoices: PropTypes.array.isRequired,
+		answer: PropTypes.any
 	}
-	static get defaultProps(){
-		return {
+	static defaultProps = {
 			answer: ''
-		};
 	}
 	constructor( props ){
 		super( props );

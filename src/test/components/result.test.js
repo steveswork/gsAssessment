@@ -1,13 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import result from '../../components/result';
+import Result from '../../components/result';
 
-const Result = result.WrappedComponent,
-	  props = {
-	  	history: {
-	  		push: (() => {})
-	  	},
-		questions: [{
+const props = {
+	  	questions: [{
 			query: '5 times 6',
 			answerChoices: [ '56', '11', '30' ],
 			correct: {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import assessment from '../../components/assessment';
+import Assessment from '../../components/assessment';
+import { MemoryRouter } from 'react-router-dom';
 
-const Assessment = assessment.WrappedComponent,
-	  props = {
+const props = {
 		totalQuestions: 8,
 		questionIndex: 0,
 		question:{
@@ -13,10 +13,7 @@ const Assessment = assessment.WrappedComponent,
 					'Nothing much',
 					'Are we speaking in tautology now?'
 				]
-			},
-		history:{
-			push: (() => {})
-		}
+			}
 	};
  
 describe( 'handles "Assessment Component"', () => {
@@ -39,7 +36,9 @@ describe( 'handles "Assessment Component"', () => {
 				  	...props, 
 				  	questionIndex: 7 
 				  },
-			  wrapper = mount( <Assessment { ..._props } /> );
+			  wrapper = mount( <MemoryRouter>
+			  					<Assessment { ..._props } />
+			  				</MemoryRouter> );
 		it( 'does not render the next button', () => {
 			expect( wrapper.find( ".next" )).toHaveLength( 0 )
 		});
