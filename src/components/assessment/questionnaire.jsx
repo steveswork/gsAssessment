@@ -15,16 +15,11 @@ export default class Questionnaire extends Component {
 	constructor( props ){
 		super( props );
 		this.state = {
-			answer: undefined
+			answer: this.props.answer
 		};
 	}
-	componentWillMount(){
-		this.state.answer = this.props.answer;
-	}
-	componentWillUpdate( nextProps, nextState ){
-		if( this.state.answer !== nextProps.answer ){
-			this.state.answer = nextProps.answer;
-		}
+	componentWillReceiveProps( nextProps ){
+		this.state.answer !== nextProps.answer && this.setAnswer( nextProps.answer );
 	}
 	setAnswer( answer ){
 		this.setState({ answer });
